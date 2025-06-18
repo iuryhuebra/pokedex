@@ -1,53 +1,61 @@
-function converterPokemonLi(pokemon, index, types) {
+import { offset } from "./main.js"
+
+export let limit = document.getElementById('limit').value
+
+
+document.getElementById('limit').onchange = () => {    
+    limit = document.getElementById('limit').value
+    getPokemons(offset)
+}
+
+function converterPokemonLi(pokemonDetail) {
+    const id = pokemonDetail.id
+    const name = pokemonDetail.name
+    const type1 = pokemonDetail.types[0].type.name
+    const img = pokemonDetail.sprites.front_default
+
     return `
-        <li class="pokemon" id="${index}">
-            <span class="number" id="${pokemon.name}Id"></span>
-            <span class="name">${String(pokemon.name)}</span>
+        <li class="pokemon ${type1}" id="${id}">
+            <span class="number" id="${name}Id">#${String(id).padStart(3, 0)}</span>
+            <span class="name">${name}</span>
 
             <div class="detail">
                 <ol class="types">
-                    <li class="type" id="typeOne${index}"></li>
-                    <li class="type" id="typeTwo${index}"></li>
+                    ${
+                        pokemonDetail.types.map(({type}, index) => {
+                            if (index > 1) return `<li class="type"></li>`
+                            return `<li class="type">${type.name}</li>`
+                        }).join('')
+                    }
                 </ol>
-                <img src="" id="${pokemon.name}Img" alt="${pokemon.name}">
+                <img src="${img}" id="${name}Img" alt="${name}">
             </div>
         </li>
     `
 }
   
 export async function getPokemons(offset) {
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     const response = await fetch(url)
     const responseJson = await response.json()
     const pokemons = responseJson.results
     const pokemonList = document.getElementById('pokemonList');
+
+    document.querySelectorAll('.pokemons li').forEach((element) => {
+        element.remove()
+    })
     
-    pokemons.map((pokemon, index) => {
-        index++
-        const pokemonHtml = converterPokemonLi(pokemon, index)
-        pokemonList.innerHTML += pokemonHtml
-        fetch(pokemon.url)
+    const pokemonsDetails = await Promise.all(
+        pokemons.map((pokemon) => (
+            fetch(pokemon.url)
             .then((response) => response.json())
             .then((pokemonDetail) => {
-                const typeOne = document.getElementById(`typeOne${index}`)
-                typeOne.classList.add(pokemonDetail.types[0].type.name)
-                typeOne.innerText = pokemonDetail.types[0].type.name
-                
-                const typeTwo = document.getElementById(`typeTwo${index}`)
-                if (pokemonDetail.types.length === 1) {
-                    typeTwo.remove()
-
-                } else {
-                    typeTwo.classList.add(pokemonDetail.types[1].type.name)
-                    typeTwo.innerText = pokemonDetail.types[1].type.name
-                }
-
-                const pokemonId = document.getElementById(pokemon.name + 'Id')
-                pokemonId.innerText = '#' + String(pokemonDetail.id).padStart(3, 0)
-
-                const pokemonImg = document.getElementById(pokemon.name + 'Img')
-                pokemonImg.setAttribute('src', pokemonDetail.sprites.front_default)
-            })
+                    return pokemonDetail
+                })
+        )))
+    
+    pokemonsDetails.forEach((detail) => {
+        pokemonList.innerHTML += converterPokemonLi(detail)
     })
+    
 }
-

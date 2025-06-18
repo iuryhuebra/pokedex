@@ -13,6 +13,7 @@
     <!-- CSS -->
      <link rel="stylesheet" href="./assets/css/global.css">
      <link rel="stylesheet" href="./assets/css/pokedex.css">
+     <link rel="stylesheet" href="./assets/css/types.css">
 </head>
 <body>
     <main>
@@ -22,19 +23,25 @@
             </header>
             <ol class="pokemons" id="pokemonList">
             </ol>
-            <section>
-                <ul class="page-control">
-                    <li class="clicked">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                </ul>
-            </section>
         </section>
+        <footer>
+            <ul class="page-control">
+                <li class="clicked">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <select name="limit" id="limit">
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </ul>
+        </footer>
     </main>  
     <script src="./assets/js/main.js" type="module"></script>
 </body>

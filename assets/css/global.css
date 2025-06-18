@@ -6,6 +6,7 @@
 .content {
     padding: 1rem;
     margin: 0 auto;
+    padding-bottom: 60px;
 }
 
 @media screen and (min-width: 1200px) {
@@ -16,11 +17,19 @@
 }
 
 .page-control {
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     list-style: none;
     align-items: center;
     justify-content: center;
     margin-top: 2rem;
+    background-color: #ffff;
+    padding: 1rem 0;
+    margin: 0;
 }
 
 .page-control li {
