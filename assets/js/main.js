@@ -1,24 +1,20 @@
-const offset = 0;
-const limit = 1;
-const pokemonList = document.getElementById('pokemonList');
+import { getPokemons } from "./poke-api.js";
 
-function converterPokemonLi(pokemon) {
-    return `
-        <li class="pokemon">
-            <span class="number">#001</span>
-            <span class="name">${pokemon.name}</span>
+getPokemons(0)
 
-            <div class="detail">
-                <ol class="types">
-                    <li class="type">Grass</li>
-                    <li class="type">Poison</li>
-                </ol>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="${pokemon.name}">
-            </div>
-        </li>
-    `
-}
+document.querySelectorAll('.page-control li').forEach((element) => {
+    element.onclick = () => {
+        document.querySelector('.page-control li.clicked').classList.remove('clicked')
+        element.classList.add('clicked')
+        const offset = (element.textContent * 20)-20
 
-pokeApi.getPokemons().then((pokemons) => {
-    pokemonList.innerHTML += pokemons.map(converterPokemonLi).join('');
+        document.querySelectorAll('.pokemons li').forEach((element) => {
+            element.remove()
+        })
+
+        console.log(offset);
+        
+
+        getPokemons(offset)
+    }
 })
