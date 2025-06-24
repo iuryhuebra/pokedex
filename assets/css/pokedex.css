@@ -2,6 +2,7 @@
 .pokemons {
     display: grid;
     grid-template-columns: 1fr;
+    gap: .5rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -10,7 +11,6 @@
 .pokemon {
     display: flex;
     flex-direction: column;
-    margin: .5rem;
     padding: 1rem 1rem 0rem;
     border-radius: 1rem;
     background-color: #49d0b0;
@@ -20,6 +20,7 @@
     background-position: right bottom;
     background-size: 80px;
     overflow: hidden;
+    min-height: 200px;
 }
 
 .pokemon .name {
@@ -40,6 +41,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex: 1;
 }
 
 .pokemon .detail .types {
@@ -47,6 +49,11 @@
     margin: 0;
     list-style: none;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .pokemon .detail .types .type {
@@ -56,6 +63,7 @@
     margin: .25rem 0;
     font-size: .625rem;
     border-radius: 1rem;
+    
 }
 
 .pokemon .detail img {

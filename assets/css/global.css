@@ -28,15 +28,20 @@
     justify-content: center;
     margin-top: 2rem;
     background-color: #ffff;
-    padding: 1rem 0;
+    padding: 3rem 0;
     margin: 0;
 }
 
 .page-control li {
     margin: 0 2rem;
     padding: .5rem .75rem;
+    width: 3rem;
+    height: 3rem;
     border: 2px solid black;
     border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-control li.clicked {
